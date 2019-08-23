@@ -1,28 +1,36 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'reedes/vim-pencil'
+Plug 'majutsushi/tagbar'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Townk/vim-autoclose'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'kristijanhusak/vim-hybrid-material'
-
+Plug 'w0rp/ale'
+Plug 'arcticicestudio/nord-vim'
+Plug 'flrnprz/plastic.vim'
+Plug 'luochen1990/rainbow'
 call plug#end()
 
 "sets
+set encoding=UTF-8
 set laststatus=2
 set splitbelow
 set splitright
 set number
+set ruler
 set noswapfile
-
-set guifont=Inconsolata:h12
+set cursorline
+set clipboard=unnamedplus
 
 "mapeamentos
-"
+vnoremap <C-c> "+y
+
 "NAVEGAÇÃO  ENTRE BUFFERS
 nnoremap <C-J> <C-W><C-J>	
 nnoremap <C-K> <C-W><C-K>
@@ -37,25 +45,48 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 vnoremap <Tab> >gV
 vnoremap <S-Tab> <gV
+nnoremap <F3> :TagbarToggle
 
 map <silent> <C-Left> <C-w>>
 map <silent> <C-Down> <C-W>-
 map <silent> <C-Up> <C-W>+
 map <silent> <C-Right> <C-w><
 
+let g:ale_fix_on_save = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_theme='deus'
+let g:rainbow_active = 1
+"let g:tagbar_ctags_bin = '/home/nuno/ctags'
 
-set background=dark
+set guioptions -=T 
+
+
 set termguicolors
-colorscheme hybrid_material
+set t_Co=256
+set background=dark
+syntax enable
 
-let g:enable_bold_font = 1
+"colorscheme nord
+colorscheme plastic
+let g:spacegray_underline_search = 1
+let g:spacegray_italicize_comments = 1
 
-let g:enable_italic_font = 1
 
-let g:hybrid_transparent_background = 1
-let g:airline_theme = "hybrid"
+"airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1 
+let g:airline_theme='hybrid'
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1 
 
-if !has('gui_running')
-	  set t_Co=256
-endif
+"syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+
+let g:pencil#wrapModeDefault = 'soft'
